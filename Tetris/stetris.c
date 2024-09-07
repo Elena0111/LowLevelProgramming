@@ -59,8 +59,6 @@ u_int16_t colors[] = {RED, GREY, BROWN, YELLOW, ORANGE, LIGHT_GREEN, PURPLE, VIO
 
 int saved_output;
 
-// If you extend this structure, either avoid pointers or adjust
-// the game logic allocate/deallocate and reset the memory
 typedef struct {
   bool occupied;
   u_int16_t color;
@@ -197,8 +195,7 @@ bool identifyJoystick() {
 }
 
 // This function is called on the start of your application
-// Here you can initialize what ever you need for your task
-// return false if something fails, else true
+
 bool initializeSenseHat() {
   //Tries to open the framebuffer device
   //First it initializes the frame buffer
@@ -235,7 +232,6 @@ static void unmapFb(){
 }
 
 // This function is called when the application exits
-// Here you can free up everything that you might have opened/allocated
 void freeSenseHat() {
   //reset matrix
   resetMatrix();
@@ -250,7 +246,7 @@ void freeSenseHat() {
 // This function should return the key that corresponds to the joystick press
 // KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, with the respective direction
 // and KEY_ENTER, when the the joystick is pressed
-// !!! when nothing was pressed you MUST return 0 !!!
+
 int readSenseHatJoystick() {
   int ready;
   ssize_t s;
@@ -334,9 +330,7 @@ void renderSenseHatMatrix(bool const playfieldChanged) {
 
 
 
-// The game logic uses only the following functions to interact with the playfield.
-// if you choose to change the playfield or the tile structure, you might need to
-// adjust this game logic <> playfield interface
+
 
 static inline void newTile(coord const target) {
   game.playfield[target.y][target.x].occupied = true;
@@ -380,9 +374,7 @@ static inline void resetPlayfield() {
   }
 }
 
-// Below here comes the game logic. Keep in mind: You are not allowed to change how the game works!
-// that means no changes are necessary below this line! And if you choose to change something
-// keep it compatible with what was provided to you!
+
 
 bool addNewTile() {
   game.activeTile.y = 0;
