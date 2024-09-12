@@ -43,13 +43,11 @@ typedef struct {
   uint64_t I_hits;
   uint64_t I_access;
   uint64_t I_evicts;
-  // You can declare additional statistics if
-  // you like, however you are now allowed to
-  // remove the accesses or hits
+  
 } cache_stat_t;
 
 
-// DECLARE CACHES AND COUNTERS FOR THE STATS HERE
+
 
 uint32_t cache_size;
 uint32_t block_size = 64;
@@ -95,13 +93,9 @@ uint32_t get_index(uint32_t cache_size, uint32_t address, int offset_bits){
 }
 
 
-// USE THIS FOR YOUR CACHE STATISTICS
+
 cache_stat_t cache_statistics;
 
-/* Reads a memory access from the trace file and returns
- * 1) access type (instruction or data access)
- * 2) memory address
- */
 
 mem_access_t read_transaction(FILE* ptr_file) {
   char type;
@@ -265,14 +259,7 @@ void main(int argc, char** argv) {
   memset(&cache_statistics, 0, sizeof(cache_stat_t));
 
 
-  /* Read command-line parameters and initialize:
-   * cache_size, cache_mapping and cache_org variables
-   */
-  /* IMPORTANT: *IF* YOU ADD COMMAND LINE PARAMETERS (you really don't need to),
-   * MAKE SURE TO ADD THEM IN THE END AND CHOOSE SENSIBLE DEFAULTS SUCH THAT WE
-   * CAN RUN THE RESULTING BINARY WITHOUT HAVING TO SUPPLY MORE PARAMETERS THAN
-   * SPECIFIED IN THE UNMODIFIED FILE (cache_size, cache_mapping and cache_org)
-   */
+
   if (argc != 4) { /* argc should be 2 for correct execution */
     printf(
         "Usage: ./cache_sim [cache size: 128-4096] [cache mapping: dm|fa] "
@@ -450,8 +437,7 @@ if(cache_org==sc){
   free(cache);
 }
 
-  /* Print the statistics */
-  // DO NOT CHANGE THE FOLLOWING LINES!
+ 
   printf("\nCache Statistics\n");
   printf("-----------------\n\n");
   printf("Accesses: %ld\n", cache_statistics.accesses);
@@ -460,8 +446,7 @@ if(cache_org==sc){
          (double)cache_statistics.hits / cache_statistics.accesses);
 
         
-  // DO NOT CHANGE UNTIL HERE
-  // You can extend the memory statistic printing if you like!
+ 
   cache_statistics.misses = cache_statistics.accesses - cache_statistics.hits;
   printf("Evicts unified cache: %ld\n", cache_statistics.evicts);
 
